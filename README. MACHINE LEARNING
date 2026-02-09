@@ -1,0 +1,89 @@
+@@ -5,25 +5,88 @@ This repository showcases my progress, problem-solving skills, and practical use
+
+---
+
+## 📌 Contents
+
+This repository may include:
+- Small Python scripts
+- Coursework / practice exercises
+- Automation tools
+- Data processing or analysis
+- Problem-solving challenges
+- Experimental or learning projects
+
+Each project is organised into its own folder where possible.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+Make sure you have:
+- Python 3.x installed  
+  Check with:
+  ```bash
+  python --version
+  ```
+
+---
+
+## Customer Churn Prediction Project
+
+This project trains a machine learning model to predict customer churn from CSV data and serves predictions via a FastAPI API.
+
+### Features
+- CSV data ingestion
+- Data cleaning, preprocessing, and feature engineering
+- Random Forest model training
+- Evaluation with accuracy, precision, recall, and F1 score
+- Model artifact persistence
+- FastAPI prediction service with input validation
+- Simple HTML dashboard with model metrics and top feature importances
+- Logging and error handling
+
+### Project Structure
+```
+churn_prediction/
+├── artifacts/                 # Saved model, metrics, and feature importances
+├── churn_prediction.py         # Training + FastAPI app (single file)
+└── requirements.txt
+```
+
+### Setup
+```bash
+cd churn_prediction
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Train the Model
+```bash
+python churn_prediction.py train --csv /path/to/churn_data.csv --target churn
+```
+
+Artifacts are saved to `churn_prediction/artifacts/`:
+- `churn_model.joblib`
+- `metrics.json`
+- `feature_importances.csv`
+- `schema.json`
+
+### Run the API
+```bash
+uvicorn churn_prediction:app --reload
+```
+
+### Example Prediction Request
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"data": {"gender": "Female", "tenure": 12, "monthly_charges": 70.5, "total_charges": 845.0}}'
+```
+
+### Dashboard
+Open `http://localhost:8000/dashboard` in your browser to see model metrics and the top 5 feature importances.
+
+### Notes
+- Ensure your input payload contains all feature columns from the training dataset.
+- The API will return an error if required fields are missing.
